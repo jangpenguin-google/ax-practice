@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JPARTNERS Business Card — 장찬영</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #d4d4d4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 40px;
+      gap: 64px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .card-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    /* 표준 명함 비율 90mm × 54mm → 680 × 408px */
+    .card {
+      width: 680px;
+      height: 408px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 72px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    /* ────────────────────────────
+       앞면 — 국문 / BLACK
+    ──────────────────────────── */
+    .front {
+      background: #0c0c0c;
+    }
+
+    /* 대각선 흰 삼각형 — 우상단 */
+    .front .geo-corner {
+      position: absolute;
+      top: 0; right: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0 220px 220px 0;
+      border-color: transparent #f5f5f5 transparent transparent;
+    }
+
+    /* 세로 액센트 바 */
+    .front .accent-bar {
+      position: absolute;
+      left: 50px;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: #fff;
+      opacity: 0.08;
+    }
+
+    .front .content {
+      position: absolute;
+      inset: 0;
+      padding: 44px 52px 42px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .front .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .front .brand-en {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 8px;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .front .brand-kr {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 5px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 7px;
+    }
+
+    .front .mid {
+      margin-top: auto;
+      padding-bottom: 8px;
+    }
+
+    .front .name-kr {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: 14px;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .front .name-en {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 5px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    .front .title-divider {
+      width: 36px;
+      height: 3px;
+      background: #fff;
+      margin: 16px 0 10px;
+    }
+
+    .front .title-kr {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .front .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .front .contact {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .front .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.3px;
+    }
+
+    .front .contact-row .lbl {
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      min-width: 16px;
+    }
+
+    .front .messengers {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    .front .messenger-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .messenger-chip {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.45);
+    }
+
+
+    /* ────────────────────────────
+       뒷면 — 영문 / WHITE
+    ──────────────────────────── */
+    .back {
+      background: #f5f5f5;
+    }
+
+    /* 대각선 검정 삼각형 — 좌하단 */
+    .back .geo-corner {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 200px 200px 0 0;
+      border-color: transparent transparent transparent #0c0c0c;
+    }
+
+    /* 수평 액센트 라인 */
+    .back .accent-line {
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #000;
+      opacity: 0.07;
+    }
+
+    .back .content {
+      position: absolute;
+      inset: 0;
+      padding: 44px 52px 42px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .back .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .back .brand-en {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 8px;
+      color: #0c0c0c;
+      line-height: 1;
+    }
+
+    .back .brand-sub {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      color: rgba(0,0,0,0.35);
+      margin-top: 7px;
+      text-transform: uppercase;
+    }
+
+    .back .mid {
+      margin-top: auto;
+      padding-bottom: 8px;
+    }
+
+    .back .name-en {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 50px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      color: #0c0c0c;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .back .title-divider {
+      width: 36px;
+      height: 3px;
+      background: #0c0c0c;
+      margin: 16px 0 10px;
+    }
+
+    .back .title-en {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      color: rgba(0,0,0,0.5);
+      text-transform: uppercase;
+    }
+
+    .back .bottom {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+
+    .back .contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    .back .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: rgba(0,0,0,0.45);
+      letter-spacing: 0.3px;
+    }
+
+    .back .contact-row .lbl {
+      font-weight: 700;
+      color: rgba(0,0,0,0.8);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+    }
+
+    .back .messenger-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .back .messenger-chip {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border: 1px solid rgba(0,0,0,0.18);
+      color: rgba(0,0,0,0.38);
+    }
+
+    /* 사이즈 안내 */
+    .size-note {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #999;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 앞면 FRONT -->
+  <div class="card-wrapper">
+    <div class="card-label">앞면 · FRONT · 국문</div>
+    <div class="card front">
+      <div class="geo-corner"></div>
+      <div class="accent-bar"></div>
+      <div class="content">
+
+        <div class="top">
+          <div>
+            <div class="brand-en">JPARTNERS</div>
+            <div class="brand-kr">제이파트너스</div>
+          </div>
+        </div>
+
+        <div class="mid">
+          <div class="name-kr">장찬영</div>
+          <div class="name-en">Jackie Jang</div>
+          <div class="title-divider"></div>
+          <div class="title-kr">대표 컨설턴트</div>
+        </div>
+
+        <div class="bottom">
+          <div class="contact">
+            <div class="contact-row">
+              <span class="lbl">M</span>
+              <span>+82-10-5090-5189</span>
+            </div>
+            <div class="contact-row">
+              <span class="lbl">E</span>
+              <span>jackie@jpartners-kr.com</span>
+            </div>
+          </div>
+          <div class="messengers">
+            <div class="messenger-row">
+              <span class="messenger-chip">WhatsApp</span>
+              <span class="messenger-chip">KakaoTalk</span>
+              <span class="messenger-chip">Line</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 뒷면 BACK -->
+  <div class="card-wrapper">
+    <div class="card-label">뒷면 · BACK · 영문</div>
+    <div class="card back">
+      <div class="geo-corner"></div>
+      <div class="accent-line"></div>
+      <div class="content">
+
+        <div class="top">
+          <div>
+            <div class="brand-en">JPARTNERS</div>
+            <div class="brand-sub">Consulting Group</div>
+          </div>
+        </div>
+
+        <div class="mid">
+          <div class="name-en">Jackie Jang</div>
+          <div class="title-divider"></div>
+          <div class="title-en">Chief Consultant</div>
+        </div>
+
+        <div class="bottom">
+          <div class="contact">
+            <div class="contact-row">
+              <span class="lbl">M</span>
+              <span>+82-10-5090-5189</span>
+            </div>
+            <div class="contact-row">
+              <span class="lbl">E</span>
+              <span>jackie@jpartners-kr.com</span>
+            </div>
+            <div class="messenger-row">
+              <span class="back messenger-chip">WhatsApp</span>
+              <span class="back messenger-chip">KakaoTalk</span>
+              <span class="back messenger-chip">Line</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="size-note">실제 인쇄 사이즈 · 90mm × 54mm (Standard Business Card)</div>
+
+</body>
+</html>
