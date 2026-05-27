@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    @page { size: 90mm 54mm; margin: 0; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { background: transparent; }
+
+    /* --w: 90mm 고정 (인쇄용 실제 크기) */
+    .card {
+      --w: 90mm;
+      width: 90mm;
+      height: calc(var(--w) * 408 / 680);
+      position: relative;
+      overflow: hidden;
+      break-after: page;
+    }
+
+    .card:last-child { break-after: auto; }
+
+    /* ─── 앞면 BLACK ─── */
+    .front { background: #0c0c0c; }
+
+    .front .geo-corner {
+      position: absolute; top: 0; right: 0;
+      width: 0; height: 0; border-style: solid;
+      border-width: 0 calc(var(--w) * 220/680) calc(var(--w) * 220/680) 0;
+      border-color: transparent #f5f5f5 transparent transparent;
+    }
+
+    .front .accent-bar {
+      position: absolute;
+      left: calc(var(--w) * 50/680); top: 0;
+      width: calc(var(--w) * 4/680); height: 100%;
+      background: #fff; opacity: 0.08;
+    }
+
+    .front .content {
+      position: absolute; inset: 0;
+      padding: calc(var(--w) * 44/680) calc(var(--w) * 52/680) calc(var(--w) * 42/680);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    .front .brand-en {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: calc(var(--w) * 32/680); font-weight: 400;
+      letter-spacing: calc(var(--w) * 10/680);
+      color: #fff; line-height: 1;
+    }
+
+    .front .brand-kr {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: calc(var(--w) * 11/680); font-weight: 300;
+      letter-spacing: calc(var(--w) * 5/680);
+      color: rgba(255,255,255,0.4); margin-top: calc(var(--w) * 7/680);
+    }
+
+    .front .mid { margin-top: auto; padding-bottom: calc(var(--w) * 8/680); }
+
+    .front .name-kr {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: calc(var(--w) * 42/680); font-weight: 700;
+      letter-spacing: calc(var(--w) * 12/680);
+      color: #fff; line-height: 1;
+    }
+
+    .front .name-en {
+      font-size: calc(var(--w) * 13/680); font-weight: 400;
+      letter-spacing: calc(var(--w) * 5/680);
+      color: rgba(255,255,255,0.4); margin-top: calc(var(--w) * 10/680);
+      text-transform: uppercase;
+    }
+
+    .front .title-divider {
+      width: calc(var(--w) * 36/680); height: calc(var(--w) * 3/680);
+      background: #fff; margin: calc(var(--w) * 16/680) 0 calc(var(--w) * 10/680);
+    }
+
+    .front .title-kr {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: calc(var(--w) * 13/680); font-weight: 500;
+      letter-spacing: calc(var(--w) * 3/680); color: rgba(255,255,255,0.75);
+    }
+
+    .front .bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+
+    .front .contact { display: flex; flex-direction: column; gap: calc(var(--w) * 5/680); }
+
+    .front .contact-row {
+      display: flex; align-items: center; gap: calc(var(--w) * 8/680);
+      font-size: calc(var(--w) * 11/680); color: rgba(255,255,255,0.5);
+    }
+
+    .front .contact-row .lbl {
+      font-weight: 700; color: rgba(255,255,255,0.85);
+      font-size: calc(var(--w) * 9/680); letter-spacing: calc(var(--w) * 1.5/680);
+      min-width: calc(var(--w) * 16/680);
+    }
+
+    .front .messengers { display: flex; align-items: flex-end; }
+
+    .front .messenger-row { display: flex; gap: calc(var(--w) * 6/680); }
+
+    .front .messenger-chip {
+      font-size: calc(var(--w) * 8/680); font-weight: 700;
+      letter-spacing: calc(var(--w) * 1.2/680); text-transform: uppercase;
+      padding: calc(var(--w) * 4/680) calc(var(--w) * 9/680);
+      border: 1px solid rgba(255,255,255,0.22); color: rgba(255,255,255,0.45);
+    }
+
+    /* ─── 뒷면 WHITE ─── */
+    .back { background: #f5f5f5; }
+
+    .back .geo-corner {
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 0; border-style: solid;
+      border-width: calc(var(--w) * 200/680) calc(var(--w) * 200/680) 0 0;
+      border-color: transparent transparent transparent #0c0c0c;
+    }
+
+    .back .accent-line {
+      position: absolute; bottom: calc(var(--w) * 60/680); left: 0;
+      width: 100%; height: 1px; background: #000; opacity: 0.07;
+    }
+
+    .back .content {
+      position: absolute; inset: 0;
+      padding: calc(var(--w) * 44/680) calc(var(--w) * 52/680) calc(var(--w) * 42/680);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    .back .brand-en {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: calc(var(--w) * 32/680); font-weight: 400;
+      letter-spacing: calc(var(--w) * 10/680);
+      color: #0c0c0c; line-height: 1;
+    }
+
+    .back .brand-sub {
+      font-size: calc(var(--w) * 10/680); font-weight: 300;
+      letter-spacing: calc(var(--w) * 4/680);
+      color: rgba(0,0,0,0.35); margin-top: calc(var(--w) * 7/680);
+      text-transform: uppercase;
+    }
+
+    .back .mid { margin-top: auto; padding-bottom: calc(var(--w) * 8/680); }
+
+    .back .name-en {
+      font-size: calc(var(--w) * 40/680); font-weight: 900;
+      letter-spacing: calc(var(--w) * 4/680);
+      color: #0c0c0c; line-height: 1; text-transform: uppercase;
+    }
+
+    .back .title-divider {
+      width: calc(var(--w) * 36/680); height: calc(var(--w) * 3/680);
+      background: #0c0c0c; margin: calc(var(--w) * 16/680) 0 calc(var(--w) * 10/680);
+    }
+
+    .back .title-en {
+      font-size: calc(var(--w) * 13/680); font-weight: 400;
+      letter-spacing: calc(var(--w) * 4/680);
+      color: rgba(0,0,0,0.5); text-transform: uppercase;
+    }
+
+    .back .bottom { display: flex; justify-content: flex-end; align-items: flex-end; }
+
+    .back .contact {
+      display: flex; flex-direction: column; align-items: flex-end;
+      gap: calc(var(--w) * 5/680);
+    }
+
+    .back .contact-row {
+      display: flex; align-items: center; gap: calc(var(--w) * 8/680);
+      font-size: calc(var(--w) * 11/680); color: rgba(0,0,0,0.45);
+    }
+
+    .back .contact-row .lbl {
+      font-weight: 700; color: rgba(0,0,0,0.8);
+      font-size: calc(var(--w) * 9/680); letter-spacing: calc(var(--w) * 1.5/680);
+    }
+
+    .back .messenger-row {
+      display: flex; gap: calc(var(--w) * 6/680); margin-top: calc(var(--w) * 4/680);
+    }
+
+    .back .messenger-chip {
+      font-size: calc(var(--w) * 8/680); font-weight: 700;
+      letter-spacing: calc(var(--w) * 1.2/680); text-transform: uppercase;
+      padding: calc(var(--w) * 4/680) calc(var(--w) * 9/680);
+      border: 1px solid rgba(0,0,0,0.18); color: rgba(0,0,0,0.38);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card front" id="front-card">
+    <div class="geo-corner"></div>
+    <div class="accent-bar"></div>
+    <div class="content">
+      <div class="top">
+        <div>
+          <div class="brand-en">JPARTNERS</div>
+          <div class="brand-kr">제이파트너스</div>
+        </div>
+      </div>
+      <div class="mid">
+        <div class="name-kr">장찬영</div>
+        <div class="name-en">Jackie Jang</div>
+        <div class="title-divider"></div>
+        <div class="title-kr">대표 컨설턴트</div>
+      </div>
+      <div class="bottom">
+        <div class="contact">
+          <div class="contact-row"><span class="lbl">M</span><span>+82-10-5090-5189</span></div>
+          <div class="contact-row"><span class="lbl">E</span><span>jackie@jpartners-kr.com</span></div>
+        </div>
+        <div class="messengers">
+          <div class="messenger-row">
+            <span class="messenger-chip">WhatsApp</span>
+            <span class="messenger-chip">KakaoTalk</span>
+            <span class="messenger-chip">Line</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card back" id="back-card">
+    <div class="geo-corner"></div>
+    <div class="accent-line"></div>
+    <div class="content">
+      <div class="top">
+        <div>
+          <div class="brand-en">JPARTNERS</div>
+          <div class="brand-sub">Consulting Group</div>
+        </div>
+      </div>
+      <div class="mid">
+        <div class="name-en">Jackie Jang</div>
+        <div class="title-divider"></div>
+        <div class="title-en">Chief Consultant</div>
+      </div>
+      <div class="bottom">
+        <div class="contact">
+          <div class="contact-row"><span class="lbl">M</span><span>+82-10-5090-5189</span></div>
+          <div class="contact-row"><span class="lbl">E</span><span>jackie@jpartners-kr.com</span></div>
+          <div class="messenger-row">
+            <span class="messenger-chip">WhatsApp</span>
+            <span class="messenger-chip">KakaoTalk</span>
+            <span class="messenger-chip">Line</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const h = location.hash;
+    if (h === '#front') document.getElementById('back-card').remove();
+    else if (h === '#back') document.getElementById('front-card').remove();
+  </script>
+</body>
+</html>
