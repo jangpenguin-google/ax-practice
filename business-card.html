@@ -17,18 +17,17 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 48px 16px;
-      gap: 48px;
-      font-family: 'Montserrat', sans-serif;
+      padding: 40px 16px;
+      gap: 40px;
+      font-family: 'Montserrat', -apple-system, 'Helvetica Neue', sans-serif;
     }
 
     .card-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       width: 100%;
-      max-width: 680px;
     }
 
     .card-label {
@@ -39,47 +38,40 @@
       color: #888;
     }
 
-    /* 스케일 컨테이너 — JS가 scale + height를 주입 */
-    .card-scaler {
-      width: 100%;
-      max-width: 680px;
+    /*
+      --w = 실제 카드 너비 (최대 680px, 모바일에서는 화면너비−32px)
+      모든 내부 크기는 calc(var(--w) * 원본px / 680) 로 비례 계산 → JS 불필요
+    */
+    .card {
+      --w: min(680px, calc(100vw - 32px));
+      width: var(--w);
+      height: calc(var(--w) * 408 / 680);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 20px 56px rgba(0,0,0,0.32), 0 4px 14px rgba(0,0,0,0.18);
     }
 
-    /* 디자인 원본 크기: 90mm×54mm → 680×408px */
-    .card {
-      width: 680px;
-      height: 408px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform-origin: top left;
-      overflow: hidden;
-      box-shadow: 0 24px 72px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.2);
-    }
-
-    /* ────────────────────────────
+    /* ─────────────────────────────────────
        앞면 — 국문 / BLACK
-    ──────────────────────────── */
-    .front {
-      background: #0c0c0c;
-    }
+    ───────────────────────────────────── */
+    .front { background: #0c0c0c; }
 
+    /* 우상단 흰 삼각형 */
     .front .geo-corner {
       position: absolute;
       top: 0; right: 0;
       width: 0; height: 0;
       border-style: solid;
-      border-width: 0 220px 220px 0;
+      border-width: 0 calc(var(--w) * 220/680) calc(var(--w) * 220/680) 0;
       border-color: transparent #f5f5f5 transparent transparent;
     }
 
+    /* 세로 액센트 바 */
     .front .accent-bar {
       position: absolute;
-      left: 50px;
+      left: calc(var(--w) * 50/680);
       top: 0;
-      width: 4px;
+      width: calc(var(--w) * 4/680);
       height: 100%;
       background: #fff;
       opacity: 0.08;
@@ -88,70 +80,64 @@
     .front .content {
       position: absolute;
       inset: 0;
-      padding: 44px 52px 42px 52px;
+      padding: calc(var(--w) * 44/680) calc(var(--w) * 52/680) calc(var(--w) * 42/680);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .front .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
     .front .brand-en {
-      font-size: 28px;
+      font-size: calc(var(--w) * 28/680);
       font-weight: 900;
-      letter-spacing: 8px;
+      letter-spacing: calc(var(--w) * 8/680);
       color: #fff;
       line-height: 1;
     }
 
     .front .brand-kr {
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 11px;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+      font-size: calc(var(--w) * 11/680);
       font-weight: 300;
-      letter-spacing: 5px;
+      letter-spacing: calc(var(--w) * 5/680);
       color: rgba(255,255,255,0.4);
-      margin-top: 7px;
+      margin-top: calc(var(--w) * 7/680);
     }
 
     .front .mid {
       margin-top: auto;
-      padding-bottom: 8px;
+      padding-bottom: calc(var(--w) * 8/680);
     }
 
     .front .name-kr {
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 52px;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+      font-size: calc(var(--w) * 52/680);
       font-weight: 900;
-      letter-spacing: 14px;
+      letter-spacing: calc(var(--w) * 14/680);
       color: #fff;
       line-height: 1;
     }
 
     .front .name-en {
-      font-size: 13px;
+      font-size: calc(var(--w) * 13/680);
       font-weight: 400;
-      letter-spacing: 5px;
+      letter-spacing: calc(var(--w) * 5/680);
       color: rgba(255,255,255,0.4);
-      margin-top: 10px;
+      margin-top: calc(var(--w) * 10/680);
       text-transform: uppercase;
     }
 
     .front .title-divider {
-      width: 36px;
-      height: 3px;
+      width: calc(var(--w) * 36/680);
+      height: calc(var(--w) * 3/680);
       background: #fff;
-      margin: 16px 0 10px;
+      margin: calc(var(--w) * 16/680) 0 calc(var(--w) * 10/680);
     }
 
     .front .title-kr {
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 13px;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+      font-size: calc(var(--w) * 13/680);
       font-weight: 500;
-      letter-spacing: 3px;
+      letter-spacing: calc(var(--w) * 3/680);
       color: rgba(255,255,255,0.75);
     }
 
@@ -164,67 +150,64 @@
     .front .contact {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: calc(var(--w) * 5/680);
     }
 
     .front .contact-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 11px;
+      gap: calc(var(--w) * 8/680);
+      font-size: calc(var(--w) * 11/680);
       color: rgba(255,255,255,0.5);
-      letter-spacing: 0.3px;
     }
 
     .front .contact-row .lbl {
       font-weight: 700;
       color: rgba(255,255,255,0.85);
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      min-width: 16px;
+      font-size: calc(var(--w) * 9/680);
+      letter-spacing: calc(var(--w) * 1.5/680);
+      min-width: calc(var(--w) * 16/680);
     }
 
     .front .messengers {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 5px;
     }
 
     .front .messenger-row {
       display: flex;
-      gap: 6px;
+      gap: calc(var(--w) * 6/680);
     }
 
-    .messenger-chip {
-      font-size: 8px;
+    .front .messenger-chip {
+      font-size: calc(var(--w) * 8/680);
       font-weight: 700;
-      letter-spacing: 1.2px;
+      letter-spacing: calc(var(--w) * 1.2/680);
       text-transform: uppercase;
-      padding: 4px 9px;
+      padding: calc(var(--w) * 4/680) calc(var(--w) * 9/680);
       border: 1px solid rgba(255,255,255,0.22);
       color: rgba(255,255,255,0.45);
     }
 
-    /* ────────────────────────────
+    /* ─────────────────────────────────────
        뒷면 — 영문 / WHITE
-    ──────────────────────────── */
-    .back {
-      background: #f5f5f5;
-    }
+    ───────────────────────────────────── */
+    .back { background: #f5f5f5; }
 
+    /* 좌하단 검정 삼각형 */
     .back .geo-corner {
       position: absolute;
       bottom: 0; left: 0;
       width: 0; height: 0;
       border-style: solid;
-      border-width: 200px 200px 0 0;
+      border-width: calc(var(--w) * 200/680) calc(var(--w) * 200/680) 0 0;
       border-color: transparent transparent transparent #0c0c0c;
     }
 
     .back .accent-line {
       position: absolute;
-      bottom: 60px;
+      bottom: calc(var(--w) * 60/680);
       left: 0;
       width: 100%;
       height: 1px;
@@ -235,60 +218,54 @@
     .back .content {
       position: absolute;
       inset: 0;
-      padding: 44px 52px 42px 52px;
+      padding: calc(var(--w) * 44/680) calc(var(--w) * 52/680) calc(var(--w) * 42/680);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .back .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
     .back .brand-en {
-      font-size: 28px;
+      font-size: calc(var(--w) * 28/680);
       font-weight: 900;
-      letter-spacing: 8px;
+      letter-spacing: calc(var(--w) * 8/680);
       color: #0c0c0c;
       line-height: 1;
     }
 
     .back .brand-sub {
-      font-size: 10px;
+      font-size: calc(var(--w) * 10/680);
       font-weight: 300;
-      letter-spacing: 4px;
+      letter-spacing: calc(var(--w) * 4/680);
       color: rgba(0,0,0,0.35);
-      margin-top: 7px;
+      margin-top: calc(var(--w) * 7/680);
       text-transform: uppercase;
     }
 
     .back .mid {
       margin-top: auto;
-      padding-bottom: 8px;
+      padding-bottom: calc(var(--w) * 8/680);
     }
 
     .back .name-en {
-      font-size: 50px;
+      font-size: calc(var(--w) * 50/680);
       font-weight: 900;
-      letter-spacing: 4px;
+      letter-spacing: calc(var(--w) * 4/680);
       color: #0c0c0c;
       line-height: 1;
       text-transform: uppercase;
     }
 
     .back .title-divider {
-      width: 36px;
-      height: 3px;
+      width: calc(var(--w) * 36/680);
+      height: calc(var(--w) * 3/680);
       background: #0c0c0c;
-      margin: 16px 0 10px;
+      margin: calc(var(--w) * 16/680) 0 calc(var(--w) * 10/680);
     }
 
     .back .title-en {
-      font-size: 13px;
+      font-size: calc(var(--w) * 13/680);
       font-weight: 400;
-      letter-spacing: 4px;
+      letter-spacing: calc(var(--w) * 4/680);
       color: rgba(0,0,0,0.5);
       text-transform: uppercase;
     }
@@ -303,37 +280,36 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 5px;
+      gap: calc(var(--w) * 5/680);
     }
 
     .back .contact-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 11px;
+      gap: calc(var(--w) * 8/680);
+      font-size: calc(var(--w) * 11/680);
       color: rgba(0,0,0,0.45);
-      letter-spacing: 0.3px;
     }
 
     .back .contact-row .lbl {
       font-weight: 700;
       color: rgba(0,0,0,0.8);
-      font-size: 9px;
-      letter-spacing: 1.5px;
+      font-size: calc(var(--w) * 9/680);
+      letter-spacing: calc(var(--w) * 1.5/680);
     }
 
     .back .messenger-row {
       display: flex;
-      gap: 6px;
-      margin-top: 4px;
+      gap: calc(var(--w) * 6/680);
+      margin-top: calc(var(--w) * 4/680);
     }
 
     .back .messenger-chip {
-      font-size: 8px;
+      font-size: calc(var(--w) * 8/680);
       font-weight: 700;
-      letter-spacing: 1.2px;
+      letter-spacing: calc(var(--w) * 1.2/680);
       text-transform: uppercase;
-      padding: 4px 9px;
+      padding: calc(var(--w) * 4/680) calc(var(--w) * 9/680);
       border: 1px solid rgba(0,0,0,0.18);
       color: rgba(0,0,0,0.38);
     }
@@ -351,40 +327,38 @@
   <!-- 앞면 FRONT -->
   <div class="card-wrapper">
     <div class="card-label">앞면 · FRONT · 국문</div>
-    <div class="card-scaler" id="scaler-front">
-      <div class="card front">
-        <div class="geo-corner"></div>
-        <div class="accent-bar"></div>
-        <div class="content">
-          <div class="top">
-            <div>
-              <div class="brand-en">JPARTNERS</div>
-              <div class="brand-kr">제이파트너스</div>
+    <div class="card front">
+      <div class="geo-corner"></div>
+      <div class="accent-bar"></div>
+      <div class="content">
+        <div class="top">
+          <div>
+            <div class="brand-en">JPARTNERS</div>
+            <div class="brand-kr">제이파트너스</div>
+          </div>
+        </div>
+        <div class="mid">
+          <div class="name-kr">장찬영</div>
+          <div class="name-en">Jackie Jang</div>
+          <div class="title-divider"></div>
+          <div class="title-kr">대표 컨설턴트</div>
+        </div>
+        <div class="bottom">
+          <div class="contact">
+            <div class="contact-row">
+              <span class="lbl">M</span>
+              <span>+82-10-5090-5189</span>
+            </div>
+            <div class="contact-row">
+              <span class="lbl">E</span>
+              <span>jackie@jpartners-kr.com</span>
             </div>
           </div>
-          <div class="mid">
-            <div class="name-kr">장찬영</div>
-            <div class="name-en">Jackie Jang</div>
-            <div class="title-divider"></div>
-            <div class="title-kr">대표 컨설턴트</div>
-          </div>
-          <div class="bottom">
-            <div class="contact">
-              <div class="contact-row">
-                <span class="lbl">M</span>
-                <span>+82-10-5090-5189</span>
-              </div>
-              <div class="contact-row">
-                <span class="lbl">E</span>
-                <span>jackie@jpartners-kr.com</span>
-              </div>
-            </div>
-            <div class="messengers">
-              <div class="messenger-row">
-                <span class="messenger-chip">WhatsApp</span>
-                <span class="messenger-chip">KakaoTalk</span>
-                <span class="messenger-chip">Line</span>
-              </div>
+          <div class="messengers">
+            <div class="messenger-row">
+              <span class="messenger-chip">WhatsApp</span>
+              <span class="messenger-chip">KakaoTalk</span>
+              <span class="messenger-chip">Line</span>
             </div>
           </div>
         </div>
@@ -395,37 +369,35 @@
   <!-- 뒷면 BACK -->
   <div class="card-wrapper">
     <div class="card-label">뒷면 · BACK · 영문</div>
-    <div class="card-scaler" id="scaler-back">
-      <div class="card back">
-        <div class="geo-corner"></div>
-        <div class="accent-line"></div>
-        <div class="content">
-          <div class="top">
-            <div>
-              <div class="brand-en">JPARTNERS</div>
-              <div class="brand-sub">Consulting Group</div>
+    <div class="card back">
+      <div class="geo-corner"></div>
+      <div class="accent-line"></div>
+      <div class="content">
+        <div class="top">
+          <div>
+            <div class="brand-en">JPARTNERS</div>
+            <div class="brand-sub">Consulting Group</div>
+          </div>
+        </div>
+        <div class="mid">
+          <div class="name-en">Jackie Jang</div>
+          <div class="title-divider"></div>
+          <div class="title-en">Chief Consultant</div>
+        </div>
+        <div class="bottom">
+          <div class="contact">
+            <div class="contact-row">
+              <span class="lbl">M</span>
+              <span>+82-10-5090-5189</span>
             </div>
-          </div>
-          <div class="mid">
-            <div class="name-en">Jackie Jang</div>
-            <div class="title-divider"></div>
-            <div class="title-en">Chief Consultant</div>
-          </div>
-          <div class="bottom">
-            <div class="contact">
-              <div class="contact-row">
-                <span class="lbl">M</span>
-                <span>+82-10-5090-5189</span>
-              </div>
-              <div class="contact-row">
-                <span class="lbl">E</span>
-                <span>jackie@jpartners-kr.com</span>
-              </div>
-              <div class="messenger-row">
-                <span class="messenger-chip">WhatsApp</span>
-                <span class="messenger-chip">KakaoTalk</span>
-                <span class="messenger-chip">Line</span>
-              </div>
+            <div class="contact-row">
+              <span class="lbl">E</span>
+              <span>jackie@jpartners-kr.com</span>
+            </div>
+            <div class="messenger-row">
+              <span class="messenger-chip">WhatsApp</span>
+              <span class="messenger-chip">KakaoTalk</span>
+              <span class="messenger-chip">Line</span>
             </div>
           </div>
         </div>
@@ -435,24 +407,5 @@
 
   <div class="size-note">실제 인쇄 사이즈 · 90mm × 54mm (Standard Business Card)</div>
 
-  <script>
-    const CARD_W = 680;
-    const CARD_H = 408;
-
-    function applyScale() {
-      document.querySelectorAll('.card-scaler').forEach(scaler => {
-        const available = scaler.offsetWidth;
-        const scale = Math.min(1, available / CARD_W);
-        const card = scaler.querySelector('.card');
-        card.style.transform = `scale(${scale})`;
-        scaler.style.height = (CARD_H * scale) + 'px';
-      });
-    }
-
-    window.addEventListener('resize', applyScale);
-    // 폰트 로드 후에도 재계산
-    document.fonts.ready.then(applyScale);
-    applyScale();
-  </script>
 </body>
 </html>
