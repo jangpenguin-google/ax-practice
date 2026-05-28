@@ -1,8 +1,8 @@
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const path = require('path');
 
-// 90mm × 54mm at 96 DPI (browser default)
-const W = Math.round(90 / 25.4 * 96);   // 340px
+// 88mm × 54mm at 96 DPI (browser default)
+const W = Math.round(88 / 25.4 * 96);   // 333px
 const H = Math.round(54 / 25.4 * 96);   // 204px
 const DPI_SCALE = 4;                     // 384 DPI output (> 300 DPI 인쇄 기준)
 
@@ -20,7 +20,7 @@ const FILE = `file://${path.resolve(__dirname, 'print.html')}`;
     await page.pdf({
       path: path.join(__dirname, 'JPARTNERS_BusinessCard.pdf'),
       printBackground: true,
-      width: '90mm',
+      width: '88mm',
       height: '54mm',
     });
     await page.close();
